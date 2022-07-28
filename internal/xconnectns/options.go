@@ -32,15 +32,16 @@ import (
 )
 
 type xconnOptions struct {
-	name            string
-	authorizeServer networkservice.NetworkServiceServer
-	clientURL       *url.URL
-	dialTimeout     time.Duration
-	domain2Device   map[string]string
-	statsOpts       []stats.Option
-	cleanupOpts     []cleanup.Option
-	vxlanOpts       []vxlan.Option
-	dialOpts        []grpc.DialOption
+	name                             string
+	authorizeServer                  networkservice.NetworkServiceServer
+	authorizeMonitorConnectionServer networkservice.MonitorConnectionServer
+	clientURL                        *url.URL
+	dialTimeout                      time.Duration
+	domain2Device                    map[string]string
+	statsOpts                        []stats.Option
+	cleanupOpts                      []cleanup.Option
+	vxlanOpts                        []vxlan.Option
+	dialOpts                         []grpc.DialOption
 }
 
 // Option is an option pattern for forwarder
@@ -60,6 +61,16 @@ func WithAuthorizeServer(authorizeServer networkservice.NetworkServiceServer) Op
 	}
 	return func(o *xconnOptions) {
 		o.authorizeServer = authorizeServer
+	}
+}
+
+// WithAuthorizeMonitorConnectionServer sets authorization MonitorConnectionServer chain element
+func WithAuthorizeMonitorConnectionServer(authorizeMonitorConnectionServer networkservice.MonitorConnectionServer) Option {
+ 	if authorizeMonitorConnectionServer == nil {
+		panic("Authorize monitor server cannot be nil")
+	}
+	return func(o *xconnOptions) {
+		o.authorizeMonitorConnectionServer = authorizeMonitorConnectionServer
 	}
 }
 
