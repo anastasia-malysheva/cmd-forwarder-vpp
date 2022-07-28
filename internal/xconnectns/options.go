@@ -66,8 +66,8 @@ func WithAuthorizeServer(authorizeServer networkservice.NetworkServiceServer) Op
 
 // WithAuthorizeMonitorConnectionServer sets authorization MonitorConnectionServer chain element
 func WithAuthorizeMonitorConnectionServer(authorizeMonitorConnectionServer networkservice.MonitorConnectionServer) Option {
- 	if authorizeMonitorConnectionServer == nil {
-		panic("Authorize monitor server cannot be nil")
+	if authorizeMonitorConnectionServer == nil {
+		panic("Authorize monitor connection server cannot be nil")
 	}
 	return func(o *xconnOptions) {
 		o.authorizeMonitorConnectionServer = authorizeMonitorConnectionServer

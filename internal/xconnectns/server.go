@@ -62,12 +62,12 @@ func NewServer(
 	options ...Option,
 ) endpoint.Endpoint {
 	xconnOpts := &xconnOptions{
-		name:                   "forwarder-" + uuid.New().String(),
-		authorizeServer:        authorize.NewServer(authorize.Any()),
+		name:                             "forwarder-" + uuid.New().String(),
+		authorizeServer:                  authorize.NewServer(authorize.Any()),
 		authorizeMonitorConnectionServer: authmonitor.NewMonitorConnectionServer(authmonitor.Any()),
-		clientURL:              &url.URL{Scheme: "unix", Host: "connect.to.socket"},
-		dialTimeout:            time.Millisecond * 200,
-		domain2Device:          make(map[string]string),
+		clientURL:                        &url.URL{Scheme: "unix", Host: "connect.to.socket"},
+		dialTimeout:                      time.Millisecond * 200,
+		domain2Device:                    make(map[string]string),
 	}
 	for _, opt := range options {
 		opt(xconnOpts)
